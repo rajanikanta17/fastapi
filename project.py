@@ -27,3 +27,25 @@ def create_book(book: Book, db: Session = Depends(get_db)):
 def get_books(db: Session = Depends(get_db)):
     books = db.query(model.Book).all()
     return books
+
+@app.put("/books/{book_id}")
+def update_book(book_id: int, book: Book, db: Session = Depends(get_db)):
+    existing_book = db.query(model.Book).filter(model.Book.id == book_id).first()
+    if not existing_book:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book not found")
+    existing_book.id = book.id
+    existing_book.title = book.title
+    existing_book.author = book.author
+    existing_book.publish_date = book.publish_date
+    db.commit()
+    db.refresh(existing_book)
+    return existing_book
+
+@app.delete("/books/{book_id}")
+def delete_book(book_id: int, db: Session = Depends(get_db)):
+    existing_book = db.query(model.Book).filter(model.Book.id == book_id).first()
+    if not existing_book:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book not found")
+    db.delete(existing_book)
+    db.commit()
+    return {"message": f"Book with ID {book_id} deleted successfully"}

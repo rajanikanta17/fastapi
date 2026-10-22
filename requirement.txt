@@ -1,4 +1,23 @@
+# FastAPI: Framework for building REST APIs
 fastapi
+
+# Uvicorn: ASGI server to run the FastAPI application
 uvicorn
+
+# SQLAlchemy: ORM for database operations using Python objects
 sqlalchemy
+
+# PyMySQL: Connects Python applications to MySQL databases
 pymysql
+
+# Passlib with Argon2: Secure password hashing and password verification
+passlib[argon2]
+
+# Python-JOSE with Cryptography: Creates and verifies JWT tokens for authentication
+python-jose[cryptography]
+
+# Python-Multipart: Handles form data and file uploads
+python-multipart
+
+# Pydantic with Email: Validates request data and email addresses
+pydantic[email]
